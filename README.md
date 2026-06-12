@@ -70,11 +70,27 @@ WebLoop is a **no-code browser automation extension** and **lightweight RPA tool
 
 ---
 
-## 🗺 Roadmap
-- [ ] **AI Failure Analysis**: Use LLMs to explain why a selector failed.
-- [ ] **Visual Workflow Editor**: Drag-and-drop step management.
-- [ ] **Cloud Sync**: Optional encrypted backup for team sharing.
-- [ ] **Advanced Selectors**: Shadow DOM and IFrame support.
+## 🗺 Roadmap & Evolution
+
+WebLoop is evolving from a simple recorder to a resilient, AI-assisted automation partner for legacy systems.
+
+### 🟢 Phase 1: Foundation (Current)
+- **Zero-Code Recording**: High-fidelity capture of complex UI interactions.
+- **Dynamic Variables**: Built-in support for `{{today}}`, `{{last_month}}`, and custom date offsets.
+- **Local-First Privacy**: Entirely local execution, ensuring enterprise data security.
+- **Universal LLM Config**: Pre-configured support for OpenAI, Anthropic, DeepSeek, and Gemini.
+
+### 🟡 Phase 2: Intelligence & Reliability (Q3 2026)
+- **AI-Self-Healing**: Automatically detect and fix broken selectors using semantic LLM analysis.
+- **Visual Logic Editor**: Intuitive drag-and-drop interface for conditional branching (If/Else) and loops.
+- **Bulk Data Processing**: Feed Excel/CSV data into automated web forms.
+- **Headless Execution**: Run scheduled tasks in the background without user interruption.
+
+### 🔵 Phase 3: Scale & Collaboration (2027)
+- **Secure Team Sync**: Encrypted workflow sharing for departments and teams.
+- **Human-in-the-Loop**: Seamless pausing for 2FA/MFA or CAPTCHA with instant user notification.
+- **Advanced Failure Analytics**: Semantic log analysis to explain *why* a workflow failed on a legacy page.
+- **Cross-App Orchestration**: Trigger WebLoop flows via external webhooks or local scripts.
 
 ---
 
