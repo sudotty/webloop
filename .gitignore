@@ -1,0 +1,16 @@
+# macOS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Build/package output
+*.zip
+dist/
+build/
+
+# Local secrets
+.env
+.env.*

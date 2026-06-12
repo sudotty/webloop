@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "WebLoop - Browser Workflow Recorder",
+  "description": "Record repetitive browser workflows once and replay them anytime: forms, filters, clicks, downloads, screenshots, and notifications. LLM-ready but not required.",
+  "version": "0.9.0",
+  "minimum_chrome_version": "120",
+  "permissions": [
+    "activeTab",
+    "alarms",
+    "downloads",
+    "notifications",
+    "scripting",
+    "sidePanel",
+    "storage",
+    "tabs",
+    "webNavigation",
+    "windows"
+  ],
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "https://api.deepseek.com/*",
+    "https://api.openai.com/*"
+  ],
+  "background": {
+    "service_worker": "service_worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Open WebLoop"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  }
+}

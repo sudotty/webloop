@@ -1,0 +1,23 @@
+{
+  "name": "webloop-extension",
+  "version": "0.9.0",
+  "private": true,
+  "description": "A lightweight Chrome extension for recording and replaying repetitive browser workflows.",
+  "scripts": {
+    "check": "node --check sidepanel.js && node --check content_script.js && node --check service_worker.js",
+    "package": "zip -r webloop-extension.zip . -x '*.git*' 'webloop-extension.zip'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "browser-automation",
+    "workflow-recorder",
+    "web-automation",
+    "rpa",
+    "web-rpa",
+    "form-filling",
+    "intranet-automation",
+    "enterprise-automation",
+    "download-automation"
+  ],
+  "license": "MIT"
+}
