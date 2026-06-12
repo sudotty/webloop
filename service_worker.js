@@ -24,11 +24,12 @@ const DEFAULT_SETTINGS = {
   followNewTabsAfterClick: true,
   llm: {
     enabled: false,
-    provider: 'none',
+    provider: 'deepseek',
     endpoint: 'https://api.deepseek.com/v1/chat/completions',
     model: 'deepseek-chat',
     apiKey: '',
-    shareMode: 'minimal'
+    shareMode: 'minimal',
+    temperature: 0.1
   }
 };
 
@@ -99,6 +100,39 @@ async function handleMessage(message, sender) {
     await chrome.storage.local.set({ settings });
     await notifyPanel();
     return { ok: true };
+  }
+  if (type === 'RR_TEST_LLM') {
+    const s = payload.settings;
+    try {
+      const isAnthropic = s.provider === 'anthropic';
+      const body = isAnthropic ? {
+        model: s.model,
+        messages: [{ role: 'user', content: 'Say "Connection Success" concisely.' }],
+        max_tokens: 20
+      } : {
+        model: s.model,
+        messages: [{ role: 'user', content: 'Say "Connection Success" concisely.' }],
+        max_tokens: 20,
+        temperature: 0.1
+      };
+      const headers = { 'Content-Type': 'application/json' };
+      if (isAnthropic) {
+        headers['x-api-key'] = s.apiKey;
+        headers['anthropic-version'] = '2023-06-01';
+      } else {
+        headers['Authorization'] = `Bearer ${s.apiKey}`;
+      }
+      const res = await fetch(s.endpoint, { method: 'POST', headers, body: JSON.stringify(body) });
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`Status ${res.status}: ${errText.slice(0, 50)}`);
+      }
+      const data = await res.json();
+      const text = isAnthropic ? data.content[0].text : data.choices[0].message.content;
+      return { ok: true, text };
+    } catch (err) {
+      return { ok: false, error: err.message };
+    }
   }
   if (type === 'RR_CREATE_DRAFT') {
     const tab = payload.tab || {};

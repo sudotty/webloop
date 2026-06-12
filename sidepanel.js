@@ -17,12 +17,23 @@ const DEFAULT_SETTINGS = {
   followNewTabsAfterClick: true,
   llm: {
     enabled: false,
-    provider: 'none',
+    provider: 'deepseek',
     endpoint: 'https://api.deepseek.com/v1/chat/completions',
     model: 'deepseek-chat',
     apiKey: '',
-    shareMode: 'minimal'
+    shareMode: 'minimal',
+    temperature: 0.1
   }
+};
+
+const LLM_PRESETS = {
+  openai: { name: 'OpenAI', endpoint: 'https://api.openai.com/v1/chat/completions', model: 'gpt-4o-mini' },
+  anthropic: { name: 'Anthropic', endpoint: 'https://api.anthropic.com/v1/messages', model: 'claude-3-5-sonnet-20240620' },
+  gemini: { name: 'Google Gemini', endpoint: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', model: 'gemini-1.5-flash' },
+  deepseek: { name: 'DeepSeek', endpoint: 'https://api.deepseek.com/v1/chat/completions', model: 'deepseek-chat' },
+  ollama: { name: 'Ollama (Local)', endpoint: 'http://localhost:11434/v1/chat/completions', model: 'llama3' },
+  groq: { name: 'Groq', endpoint: 'https://api.groq.com/openai/v1/chat/completions', model: 'llama-3.1-70b-versatile' },
+  custom: { name: 'Custom (OpenAI API)', endpoint: '', model: '' }
 };
 
 const state = {
@@ -660,20 +671,76 @@ function renderSettings() {
     </div>
 
     <div class="card">
-      <details class="advanced-block">
-        <summary>LLM 预留，当前不用也能完整使用</summary>
-        <div class="divider"></div>
-        <div class="stack">
-          <label class="checkbox-row"><input id="llmEnabled" type="checkbox" ${s.llm.enabled ? 'checked' : ''}/>启用 LLM 辅助，暂不自动执行修改</label>
-          <label class="field">Provider<select id="llmProvider"><option value="none" ${s.llm.provider === 'none' ? 'selected' : ''}>none</option><option value="deepseek" ${s.llm.provider === 'deepseek' ? 'selected' : ''}>DeepSeek</option><option value="openai-compatible" ${s.llm.provider === 'openai-compatible' ? 'selected' : ''}>OpenAI Compatible</option></select></label>
-          <label class="field">Endpoint<input id="llmEndpoint" value="${escapeHtml(s.llm.endpoint)}" /></label>
-          <label class="field">Model<input id="llmModel" value="${escapeHtml(s.llm.model)}" /></label>
-          <label class="field">API Key<input id="llmApiKey" type="password" value="${escapeHtml(s.llm.apiKey)}" placeholder="保存在本地 storage" /></label>
-          <div class="notice warn">后续只建议上传脱敏 DOM 摘要和失败日志，不上传完整业务页面。</div>
+      <div class="section-head">
+        <div>
+          <h2>LLM 智能化辅助</h2>
+          <p>用于辅助失败修复和流程建议。暂不自动执行。</p>
         </div>
-      </details>
+      </div>
+      <div class="stack">
+        <label class="checkbox-row">
+          <input id="llmEnabled" type="checkbox" ${s.llm.enabled ? 'checked' : ''}/>
+          启用 AI 辅助 (实验性)
+        </label>
+        
+        <div id="llmConfigArea" class="stack mini-panel" style="${s.llm.enabled ? '' : 'display:none; opacity:0.6; pointer-events:none;'}">
+          <label class="field">
+            服务商
+            <select id="llmProvider">
+              ${Object.entries(LLM_PRESETS).map(([id, p]) => `<option value="${id}" ${s.llm.provider === id ? 'selected' : ''}>${p.name}</option>`).join('')}
+            </select>
+          </label>
+          <label class="field">
+            接口地址 (Endpoint)
+            <input id="llmEndpoint" value="${escapeHtml(s.llm.endpoint)}" placeholder="https://api.example.com/v1/..." />
+          </label>
+          <div class="grid2">
+            <label class="field">
+              模型 (Model)
+              <input id="llmModel" value="${escapeHtml(s.llm.model)}" placeholder="gpt-4o / deepseek-chat" />
+            </label>
+            <label class="field">
+              温度 (Temp)
+              <input id="llmTemperature" type="number" step="0.1" min="0" max="2" value="${s.llm.temperature ?? 0.1}" />
+            </label>
+          </div>
+          <label class="field">
+            API Key
+            <input id="llmApiKey" type="password" value="${escapeHtml(s.llm.apiKey)}" placeholder="保存在本地，不上传云端" />
+          </label>
+          <button class="secondary wide" data-action="test-llm">测试模型连接</button>
+        </div>
+        <div class="notice">目前仅在任务失败时用于分析 DOM 结构和提示修复方案，不会上传敏感数据。</div>
+      </div>
     </div>`;
-  ['activateTabWhenRunning','closeTabAfterRun','notifyOnTaskStart','notifyOnSuccess','notifyOnFailure','notifyOnNeedHuman','smartHoverRecording','showPageHints','iframeSupport','dynamicVariables','screenshotOnFailure','screenshotOnSuccess','followNewTabsAfterClick','screenshotDirectory','stepRetryCount','runTimeoutMinutes','llmEnabled','llmProvider','llmEndpoint','llmModel','llmApiKey'].forEach(id => {
+
+  // Bind visibility
+  const llmEnabled = $('#llmEnabled', root);
+  const llmArea = $('#llmConfigArea', root);
+  if (llmEnabled && llmArea) {
+    llmEnabled.addEventListener('change', () => {
+      llmArea.style.display = llmEnabled.checked ? 'grid' : 'none';
+      llmArea.style.opacity = llmEnabled.checked ? '1' : '0.6';
+      llmArea.style.pointerEvents = llmEnabled.checked ? 'auto' : 'none';
+    });
+  }
+
+  // Bind provider presets
+  const llmProvider = $('#llmProvider', root);
+  if (llmProvider) {
+    llmProvider.addEventListener('change', () => {
+      const p = LLM_PRESETS[llmProvider.value];
+      if (p) {
+        const endpointInput = $('#llmEndpoint', root);
+        const modelInput = $('#llmModel', root);
+        if (endpointInput) endpointInput.value = p.endpoint;
+        if (modelInput) modelInput.value = p.model;
+        saveSettingsFromDom();
+      }
+    });
+  }
+
+  ['activateTabWhenRunning','closeTabAfterRun','notifyOnTaskStart','notifyOnSuccess','notifyOnFailure','notifyOnNeedHuman','smartHoverRecording','showPageHints','iframeSupport','dynamicVariables','screenshotOnFailure','screenshotOnSuccess','followNewTabsAfterClick','screenshotDirectory','stepRetryCount','runTimeoutMinutes','llmEnabled','llmProvider','llmEndpoint','llmModel','llmApiKey','llmTemperature'].forEach(id => {
     const el = $(`#${id}`, root);
     if (el) el.addEventListener('change', saveSettingsFromDom);
     if (el && ['llmEndpoint','llmModel','llmApiKey','screenshotDirectory'].includes(id)) el.addEventListener('input', debounce(saveSettingsFromDom, 300));
@@ -700,10 +767,11 @@ async function saveSettingsFromDom() {
   s.stepRetryCount = Math.max(0, Math.min(5, Number($('#stepRetryCount')?.value ?? s.stepRetryCount ?? 1)));
   s.runTimeoutMinutes = Math.max(1, Math.min(120, Number($('#runTimeoutMinutes')?.value ?? s.runTimeoutMinutes ?? 10)));
   s.llm.enabled = $('#llmEnabled')?.checked ?? false;
-  s.llm.provider = $('#llmProvider')?.value || 'none';
+  s.llm.provider = $('#llmProvider')?.value || 'deepseek';
   s.llm.endpoint = $('#llmEndpoint')?.value || DEFAULT_SETTINGS.llm.endpoint;
   s.llm.model = $('#llmModel')?.value || DEFAULT_SETTINGS.llm.model;
   s.llm.apiKey = $('#llmApiKey')?.value || '';
+  s.llm.temperature = Number($('#llmTemperature')?.value ?? 0.1);
   await send('RR_SAVE_SETTINGS', { settings: s });
   state.settings = s;
   showToast('设置已保存');
@@ -751,6 +819,7 @@ function bindActions(root = document) {
         if (action === 'clear-logs') await clearLogs();
         if (action === 'insert-variable') await setStepValue(id, btn.dataset.value);
         if (action === 'test-notification') await testNotification();
+        if (action === 'test-llm') await testLlm();
         if (action === 'export-backup') await exportBackup();
         if (action === 'import-backup') await importBackup();
       } catch (err) {
@@ -1140,6 +1209,17 @@ async function testNotification() {
   const res = await send('RR_TEST_NOTIFICATION');
   if (!res.ok) throw new Error(res.error || '通知测试失败');
   showToast('测试通知已发送');
+}
+
+async function testLlm() {
+  const s = state.settings.llm;
+  if (!s.apiKey) throw new Error('请输入 API Key');
+  if (!s.endpoint) throw new Error('请输入 Endpoint');
+  
+  showToast('正在测试模型连接...');
+  const res = await send('RR_TEST_LLM', { settings: s });
+  if (!res.ok) throw new Error(res.error || '连接测试失败');
+  showToast(`✅ 连接成功：${res.text.trim()}`);
 }
 
 

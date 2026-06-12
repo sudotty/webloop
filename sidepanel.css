@@ -236,3 +236,21 @@ summary { cursor: pointer; color: var(--muted); font-size: 12px; }
 /* v0.8 screenshot and safer default form UX */
 .screenshot-now { margin-top: 8px; }
 .log-sub + .notice.warn { margin-top: 8px; }
+
+/* v0.9 LLM Settings UI */
+#llmConfigArea {
+  transition: all 0.25s ease;
+  border-left: 3px solid var(--blue);
+  background: #f8fafc;
+  padding: 12px;
+  margin-top: 4px;
+}
+#llmProvider {
+  font-weight: 650;
+  color: var(--blue);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%232563eb'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  appearance: none;
+}
