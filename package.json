@@ -2,10 +2,15 @@
   "name": "webloop-extension",
   "version": "0.9.0",
   "private": true,
+  "type": "module",
   "description": "Lightweight, no-code Chrome extension for recording and automating repetitive browser workflows on legacy enterprise systems, ERPs, and intranets. Local-first & AI-ready.",
   "scripts": {
-    "check": "node --check sidepanel.js && node --check content_script.js && node --check service_worker.js",
-    "package": "zip -r webloop-extension.zip . -x '*.git*' 'webloop-extension.zip'"
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && node scripts/postbuild.mjs",
+    "build:fast": "vite build && node scripts/postbuild.mjs",
+    "typecheck": "tsc --noEmit",
+    "check": "node --check content_script.js && node --check service_worker.js",
+    "package": "npm run build && cd dist && zip -r ../webloop-extension.zip . -x '*.git*'"
   },
   "keywords": [
     "chrome-extension",
@@ -19,5 +24,17 @@
     "enterprise-automation",
     "download-automation"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
 }

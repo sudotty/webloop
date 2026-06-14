@@ -63,10 +63,35 @@ WebLoop 是一款适用于 Chrome 的 **无代码浏览器自动化插件** 和 
 
 ## 🛠 安装指南
 
-1. 下载/克隆本仓库。
-2. 打开 `chrome://extensions/`。
-3. 开启 **开发者模式**。
-4. 点击 **加载已解压的扩展程序** 并选择本项目文件夹。
+WebLoop 的侧边栏是一个使用 Vite 构建的 React + TypeScript 应用。请先构建一次，然后将生成的 `dist/` 文件夹作为已解压的扩展程序加载。
+
+```bash
+npm install
+npm run build      # 类型检查、构建侧边栏并组装 dist/
+```
+
+1. 打开 `chrome://extensions/`。
+2. 开启 **开发者模式**。
+3. 点击 **加载已解压的扩展程序** 并选择生成的 **`dist/`** 文件夹。
+
+> 确定性自动化核心（`service_worker.js`、`content_script.js`）为纯 JavaScript，会被**原样**复制到 `dist/` 中——只有 UI 部分会被打包。
+
+### 🧑‍💻 开发
+
+```bash
+npm run dev        # 启动 Vite 开发服务器，便于快速迭代侧边栏
+npm run typecheck  # tsc --noEmit
+npm run build      # 生产环境构建，输出到 dist/
+npm run package    # 构建并打包为可上架商店的压缩包
+```
+
+请参阅 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) 了解各部分如何协同工作，并参阅 [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md) 获取端到端的完整操作指南。
+
+---
+
+## 🔐 权限与隐私
+
+WebLoop 坚持 **本地优先**，绝不会在一开始就索取宽泛的“读取你的所有数据”权限。它只在你录制或运行某个站点时，按需逐个站点请求权限，且每一项授权都可在应用内的 **权限** 标签页中随时撤销。每项权限的逐条说明请参阅 [`docs/PERMISSIONS.md`](docs/PERMISSIONS.md)。
 
 ---
 

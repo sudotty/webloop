@@ -254,3 +254,14 @@ summary { cursor: pointer; color: var(--muted); font-size: 12px; }
   background-size: 14px;
   appearance: none;
 }
+
+/* ── Permissions panel ─────────────────────────────────────────── */
+.perm-current { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel-2); }
+.perm-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.perm-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid var(--soft-line); border-radius: 12px; background: #fff; }
+.perm-origin { font-weight: 600; font-size: 13px; word-break: break-all; }
+.perm-sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.perm-explain { display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--soft-line); font-size: 12px; }
+.perm-explain:last-child { border-bottom: none; }
+.perm-explain code { color: var(--blue); background: var(--blue-bg); padding: 2px 6px; border-radius: 6px; font-size: 11px; white-space: nowrap; }
+.perm-explain span { color: var(--muted); }

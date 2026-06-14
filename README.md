@@ -63,10 +63,35 @@ WebLoop is a **no-code browser automation extension** and **lightweight RPA tool
 
 ## 🛠 Installation
 
-1. Download/Clone this repository.
-2. Go to `chrome://extensions/`.
-3. Enable **Developer mode**.
-4. Click **Load unpacked** and select the folder.
+WebLoop's side panel is a React + TypeScript app built with Vite. Build it once, then load the generated `dist/` folder as an unpacked extension.
+
+```bash
+npm install
+npm run build      # type-checks, builds the side panel, assembles dist/
+```
+
+1. Go to `chrome://extensions/`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked** and select the generated **`dist/`** folder.
+
+> The deterministic automation core (`service_worker.js`, `content_script.js`) is plain JavaScript and is copied into `dist/` **verbatim** — only the UI is bundled.
+
+### 🧑‍💻 Development
+
+```bash
+npm run dev        # Vite dev server for fast side-panel iteration
+npm run typecheck  # tsc --noEmit
+npm run build      # production build into dist/
+npm run package    # build + zip a store-ready archive
+```
+
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for how the pieces fit together, and [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md) for an end-to-end walkthrough.
+
+---
+
+## 🔐 Permissions & Privacy
+
+WebLoop is **local-first** and never requests broad "read all your data" access up front. It asks for one site at a time, only when you record or run against it, and every grant is revocable from the in-app **Permissions** tab. See [`docs/PERMISSIONS.md`](docs/PERMISSIONS.md) for a line-by-line rationale of every permission.
 
 ---
 
