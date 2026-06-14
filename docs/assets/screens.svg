@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="960" height="520" fill="#f7f8fb"/>
+
+  <!-- ============ Panel 1: Record / Builder ============ -->
+  <g transform="translate(48,40)" filter="url(#s)">
+    <rect width="400" height="440" rx="20" fill="#ffffff"/>
+    <text x="20" y="34" font-size="14" font-weight="800" fill="#111827">① Record a workflow</text>
+
+    <!-- recording hero -->
+    <g transform="translate(20,48)">
+      <rect width="360" height="92" rx="16" fill="#fff7e6" stroke="#fde2b3"/>
+      <text x="16" y="26" font-size="12" font-weight="700" fill="#111827">Recording…</text>
+      <text x="16" y="44" font-size="9.5" fill="#8a6d3b">Go back to the page and act normally.</text>
+      <rect x="252" y="14" width="92" height="22" rx="11" fill="#b54708"/>
+      <circle cx="266" cy="25" r="4" fill="#fff"/><text x="296" y="29" font-size="9.5" font-weight="700" fill="#fff" text-anchor="middle">recording</text>
+      <rect x="16" y="56" width="166" height="26" rx="9" fill="#b42318"/><text x="99" y="73" font-size="10.5" font-weight="700" fill="#fff" text-anchor="middle">Stop recording</text>
+      <rect x="190" y="56" width="154" height="26" rx="9" fill="#eef2ff"/><text x="267" y="73" font-size="10.5" font-weight="700" fill="#2563eb" text-anchor="middle">Save &amp; test</text>
+    </g>
+
+    <!-- flow summary -->
+    <g transform="translate(20,152)" font-size="9.5">
+      <rect width="360" height="26" rx="9" fill="#f1f5f9"/>
+      <text x="14" y="17" fill="#667085">Fill <tspan font-weight="800" fill="#111827">4</tspan></text>
+      <text x="92" y="17" fill="#667085">Click <tspan font-weight="800" fill="#111827">5</tspan></text>
+      <text x="180" y="17" fill="#667085">Wait <tspan font-weight="800" fill="#111827">3</tspan></text>
+      <text x="268" y="17" fill="#667085">Manual <tspan font-weight="800" fill="#111827">0</tspan></text>
+    </g>
+
+    <!-- steps -->
+    <g transform="translate(20,188)" font-size="10">
+      <g>
+        <rect width="360" height="44" rx="12" fill="#ffffff" stroke="#edf0f4"/>
+        <circle cx="22" cy="22" r="11" fill="#111827"/><text x="22" y="26" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+        <text x="42" y="19" font-weight="700" fill="#111827">Fill field</text>
+        <rect x="300" y="11" width="50" height="16" rx="8" fill="#eaf8f0"/><text x="325" y="23" font-size="8.5" font-weight="700" fill="#07824a" text-anchor="middle">stable</text>
+        <text x="42" y="34" font-size="8.5" fill="#667085">Start date = {{month_start}}</text>
+      </g>
+      <g transform="translate(0,52)">
+        <rect width="360" height="44" rx="12" fill="#ffffff" stroke="#edf0f4"/>
+        <circle cx="22" cy="22" r="11" fill="#111827"/><text x="22" y="26" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+        <text x="42" y="19" font-weight="700" fill="#111827">Click element</text>
+        <rect x="300" y="11" width="50" height="16" rx="8" fill="#eaf8f0"/><text x="325" y="23" font-size="8.5" font-weight="700" fill="#07824a" text-anchor="middle">stable</text>
+        <text x="42" y="34" font-size="8.5" fill="#667085">Query</text>
+      </g>
+      <g transform="translate(0,104)">
+        <rect width="360" height="44" rx="12" fill="#ffffff" stroke="#edf0f4"/>
+        <circle cx="22" cy="22" r="11" fill="#2563eb"/><text x="22" y="26" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+        <text x="42" y="19" font-weight="700" fill="#111827">Wait until page stable</text>
+        <text x="42" y="34" font-size="8.5" fill="#667085">DOM quiet for 0.9s</text>
+      </g>
+      <g transform="translate(0,156)">
+        <rect width="360" height="40" rx="12" fill="#eff6ff" stroke="#dbeafe"/>
+        <text x="16" y="25" font-size="9.5" fill="#2563eb">✓ Flow check: no obvious problems. Test once before scheduling.</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ============ Panel 2: Permissions ============ -->
+  <g transform="translate(512,40)" filter="url(#s)">
+    <rect width="400" height="440" rx="20" fill="#ffffff"/>
+    <text x="20" y="34" font-size="14" font-weight="800" fill="#111827">② Per-site permissions</text>
+
+    <g transform="translate(20,48)">
+      <rect width="360" height="64" rx="14" fill="#eaf8f0" stroke="#bfe9d0"/>
+      <text x="16" y="24" font-size="9.5" fill="#07824a">Local-first: tasks, logs &amp; settings stay in your</text>
+      <text x="16" y="40" font-size="9.5" fill="#07824a">browser. WebLoop never asks to "read all sites".</text>
+      <text x="16" y="56" font-size="9.5" fill="#07824a">Access is requested one site at a time.</text>
+    </g>
+
+    <g transform="translate(20,124)">
+      <rect width="360" height="48" rx="12" fill="#f1f5f9"/>
+      <text x="16" y="24" font-size="11" font-weight="700" fill="#111827">erp.acme.com</text>
+      <text x="16" y="38" font-size="9" fill="#667085">current page · authorized</text>
+      <rect x="286" y="12" width="62" height="24" rx="9" fill="#fff" stroke="#e5e7eb"/><text x="317" y="28" font-size="9.5" font-weight="600" fill="#667085" text-anchor="middle">Revoke</text>
+    </g>
+
+    <text x="20" y="196" font-size="11" font-weight="800" fill="#111827">Authorized sites</text>
+    <g transform="translate(20,206)" font-size="10">
+      <g><rect width="360" height="38" rx="11" fill="#fff" stroke="#edf0f4"/><text x="14" y="23" font-weight="600" fill="#111827">erp.acme.com</text><rect x="290" y="8" width="58" height="22" rx="9" fill="#fff" stroke="#e5e7eb"/><text x="319" y="23" font-size="9" fill="#667085" text-anchor="middle">Revoke</text></g>
+      <g transform="translate(0,46)"><rect width="360" height="38" rx="11" fill="#fff" stroke="#edf0f4"/><text x="14" y="23" font-weight="600" fill="#111827">crm.acme.com</text><rect x="290" y="8" width="58" height="22" rx="9" fill="#fff" stroke="#e5e7eb"/><text x="319" y="23" font-size="9" fill="#667085" text-anchor="middle">Revoke</text></g>
+      <g transform="translate(0,92)"><rect width="360" height="38" rx="11" fill="#fff" stroke="#edf0f4"/><text x="14" y="23" font-weight="600" fill="#111827">oa.acme.com</text><rect x="290" y="8" width="58" height="22" rx="9" fill="#fff" stroke="#e5e7eb"/><text x="319" y="23" font-size="9" fill="#667085" text-anchor="middle">Revoke</text></g>
+    </g>
+
+    <text x="20" y="372" font-size="11" font-weight="800" fill="#111827">Baseline permissions</text>
+    <g transform="translate(20,382)" font-size="8.5">
+      <rect width="360" height="42" rx="11" fill="#fbfcfe" stroke="#edf0f4"/>
+      <rect x="12" y="10" width="56" height="16" rx="6" fill="#eff6ff"/><text x="40" y="22" fill="#2563eb" text-anchor="middle">storage</text>
+      <text x="78" y="22" fill="#667085">Save tasks &amp; settings locally — no cloud.</text>
+      <text x="12" y="36" fill="#667085">scripting · downloads · notifications · alarms — explained inline.</text>
+    </g>
+  </g>
+</svg>

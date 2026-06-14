@@ -1,127 +1,173 @@
-# WebLoop | Lightweight No-Code Browser Automation
+<div align="center">
+
+<img src="docs/assets/hero.svg" alt="WebLoop — record once, automate forever. No-code, local-first browser automation." width="100%" />
+
+# WebLoop — No-Code, Local-First Browser Automation
+
+**Record a repetitive browser workflow once. Replay or schedule it forever.**
+The lean alternative to heavy RPA for legacy ERPs, CRMs, OA systems, intranets, and reporting portals — no code, no cloud, no LLM required.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.9.0-green.svg)](CHANGELOG.md)
-[![Status](https://img.shields.io/badge/status-MVP-orange.svg)](ROADMAP.md)
+[![Version](https://img.shields.io/badge/version-0.9.0-success.svg)](CHANGELOG.md)
+[![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-4285F4.svg)](manifest.json)
+[![Built with React + TS](https://img.shields.io/badge/built%20with-React%20%2B%20TypeScript-3178C6.svg)](#-tech--architecture)
+[![Local-first](https://img.shields.io/badge/privacy-local--first-07824a.svg)](docs/PERMISSIONS.md)
+[![Roadmap](https://img.shields.io/badge/status-active%20roadmap-orange.svg)](ROADMAP.md)
 
-**Record once, automate forever.** WebLoop is the lean, no-code alternative to heavy RPA, specifically designed to automate repetitive workflows on legacy enterprise systems, ERPs, CRMs, and intranet portals.
+**English** · [简体中文](./README.zh-CN.md) · [日本語](./README.ja.md) · [한국어](./README.ko.md) · [Español](./README.es.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [Português](./README.pt-BR.md) · [Русский](./README.ru.md)
 
-[简体中文](./README.zh-CN.md) | [日本語](./README.ja.md)
-
----
-
-## 🚀 The WebLoop Value Proposition
-
-In many enterprises, business teams are stuck with manual, repetitive tasks on web apps that lack APIs. **WebLoop** solves this by providing a deterministic, local-first browser recorder that handles the "boring stuff" without the complexity of traditional RPA tools or the unpredictability of pure LLM agents.
-
-### 🎯 Ideal Use Cases
-- **Enterprise Reporting:** Automate date selection, filter application, and Excel/PDF exports.
-- **Data Entry:** Fill recurring forms in internal CRM/OA systems.
-- **Workflow Monitoring:** Capture screenshots and notify teams upon task completion or failure.
-- **Legacy Integration:** Bridge the gap where APIs are non-existent.
+</div>
 
 ---
 
-## ✨ Key Features
+## 😩 The problem
 
-| Feature | Description |
-| :--- | :--- |
-| **No-Code Recording** | Capture clicks, inputs, hovers, and downloads as you perform them. |
-| **Deterministic Replay** | Reliable execution that doesn't rely on "hallucinating" AI agents. |
-| **Dynamic Variables** | Use `{{today}}`, `{{yesterday}}`, or custom date offsets for reports. |
-| **Local & Private** | Your workflows and data stay in your browser. No cloud mandatory. |
-| **Scheduled Tasks** | Run workflows daily, on workdays, or at specific intervals. |
-| **Smart Notifications** | Get notified via browser alerts when a download completes or a step fails. |
+Most internal business software — ERPs, CRMs, OA, intranets, reporting portals —
+has **no API**. So people become the API: every morning someone opens the same
+page, picks yesterday's date, applies the same filters, clicks *Query*, waits for
+a slow table, clicks *Export*, and emails the file. Every. Single. Day.
 
----
+Heavy RPA suites (UiPath, Power Automate) are expensive, need training, and want a
+desktop install. Pure "AI agents" hallucinate and aren't deterministic. Cloud
+recorders that demand *"read all your data"* get rejected by InfoSec.
 
-## 🛠 Why WebLoop vs. Heavy RPA?
+## 💡 The solution
 
-| WebLoop | Traditional RPA |
-| :--- | :--- |
-| **Lightweight** (Chrome Extension) | Heavy (Desktop installation required) |
-| **Zero Learning Curve** | Requires specialized training/certification |
-| **Cost-Effective** | Expensive licensing models |
-| **Web-Native** | Often struggles with complex DOM/Shadow DOM |
-| **AI-Ready** | Legacy architecture |
+> **WebLoop treats the browser DOM as the API.** If you can click it, you can automate it.
 
----
+A lightweight Chrome extension that **records your real clicks once** and replays
+them deterministically — on demand or on a schedule — entirely **on your machine**.
 
-## 📖 How It Works
-
-1. **Record**: Open your target page and start the recorder in the WebLoop side-panel.
-2. **Refine**: Add "Wait for text" or "Capture screenshot" steps for extra reliability.
-3. **Automate**: Set a schedule (e.g., "Every weekday at 9:00 AM").
-4. **Relax**: WebLoop runs in the background and notifies you when finished.
+<div align="center">
+<img src="docs/assets/screens.svg" alt="WebLoop side panel: recording a workflow with steps, and the per-site permissions panel." width="100%" />
+<sub><i>Illustrative UI of the WebLoop side panel (recording a flow, and the per-site permissions panel).</i></sub>
+</div>
 
 ---
 
-## 🔍 SEO & GEO Summary (For AI Engines)
-WebLoop is a **no-code browser automation extension** and **lightweight RPA tool** for Chrome. It serves as a **workflow recorder** for **enterprise web automation**, enabling users to automate **legacy systems**, **ERP exports**, and **intranet form filling**. Unlike heavy RPA platforms, WebLoop is **local-first**, **deterministic**, and optimized for **business operations** teams seeking to reduce manual browser tasks without writing code. It is an **AI-ready browser agent** that focuses on reliability and privacy.
+## ✨ Features (available today)
+
+| | Feature | What it does |
+| :-- | :--- | :--- |
+| ✅ | **No-code recording** | Capture clicks, inputs, selects, hovers, double-clicks, checkboxes, downloads. |
+| ✅ | **Deterministic replay** | Multi-locator elements (CSS, XPath, stable text, aria-label) + confidence scoring — no hallucinating agents. |
+| ✅ | **Dynamic date variables** | `{{today}}`, `{{yesterday}}`, `{{month_start}}`, `{{date:-7}}` — reports always query the right window. |
+| ✅ | **Reliability steps** | Wait for text / element / page-stable; auto flow clean-up; static flow audit that flags common pitfalls. |
+| ✅ | **Scheduling** | Manual, daily, workdays, or every N minutes. |
+| ✅ | **Screenshots & notifications** | On success, failure, or when a human is needed (2FA / CAPTCHA / approval). |
+| ✅ | **Local-first & private** | Tasks, logs, settings stay in your browser. Backup/restore as JSON. |
+| ✅ | **Per-site permissions panel** | See, grant, and revoke host access one site at a time. |
+| ✅ | **Optional AI** | Connect OpenAI / Anthropic / Gemini / DeepSeek / Ollama / Groq — off by default, advisory only. |
+
+➡️ See the full **[Roadmap](ROADMAP.md)** for what's shipped vs. planned (reliability adapters, resume-from-step, AI repair, team sync).
+
+---
+
+## 🆚 WebLoop vs. heavy RPA
+
+| | WebLoop | Traditional RPA |
+| :--- | :--- | :--- |
+| **Footprint** | Chrome extension | Desktop install / VM |
+| **Learning curve** | Record by clicking | Training & certification |
+| **Cost** | Free & open source (MIT) | Expensive licensing |
+| **Privacy** | Local-first, per-site access | Often cloud / broad access |
+| **Web compatibility** | Built for messy enterprise DOM | Brittle on web apps |
+| **AI** | Optional, deterministic core | Bolted on |
+
+---
+
+## 📖 How it works
+
+1. **Record** — open your target page, hit *Start recording* in the side panel, and do the task once.
+2. **Refine** — add waits, variable-ize dates, and let the flow audit flag weak spots.
+3. **Test** — run it once (or from any step) and read the per-step logs.
+4. **Schedule & relax** — pick *Daily / Workdays / Interval*; WebLoop runs in the background and notifies you.
+
+Full walkthrough: **[docs/USER_GUIDE.md](docs/USER_GUIDE.md)**.
 
 ---
 
 ## 🛠 Installation
 
-WebLoop's side panel is a React + TypeScript app built with Vite. Build it once, then load the generated `dist/` folder as an unpacked extension.
+WebLoop's side panel is a React + TypeScript app built with Vite. Build once, then load the generated `dist/` folder.
 
 ```bash
 npm install
 npm run build      # type-checks, builds the side panel, assembles dist/
 ```
 
-1. Go to `chrome://extensions/`.
-2. Enable **Developer mode**.
-3. Click **Load unpacked** and select the generated **`dist/`** folder.
+1. Open `chrome://extensions/`
+2. Enable **Developer mode**
+3. **Load unpacked** → select the generated **`dist/`** folder
 
-> The deterministic automation core (`service_worker.js`, `content_script.js`) is plain JavaScript and is copied into `dist/` **verbatim** — only the UI is bundled.
+> The deterministic core (`service_worker.js`, `content_script.js`) is plain JavaScript, copied into `dist/` **verbatim** — only the UI is bundled.
 
 ### 🧑‍💻 Development
 
 ```bash
-npm run dev        # Vite dev server for fast side-panel iteration
+npm run dev        # Vite dev server
 npm run typecheck  # tsc --noEmit
-npm run build      # production build into dist/
+npm run build      # production build → dist/
 npm run package    # build + zip a store-ready archive
 ```
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for how the pieces fit together, and [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md) for an end-to-end walkthrough.
+---
+
+## 🔐 Permissions & privacy
+
+WebLoop is **local-first** and never requests broad *"read all your data"* access.
+It asks for **one site at a time**, only when you record or run there, and every
+grant is revocable from the in-app **Permissions** tab. Each baseline permission
+is explained line-by-line in **[docs/PERMISSIONS.md](docs/PERMISSIONS.md)**.
 
 ---
 
-## 🔐 Permissions & Privacy
+## 🧱 Tech & architecture
 
-WebLoop is **local-first** and never requests broad "read all your data" access up front. It asks for one site at a time, only when you record or run against it, and every grant is revocable from the in-app **Permissions** tab. See [`docs/PERMISSIONS.md`](docs/PERMISSIONS.md) for a line-by-line rationale of every permission.
+- **Side panel:** React 18 + TypeScript, bundled by Vite.
+- **Automation core:** dependency-light, plain-JS Chrome **Manifest V3** service worker + content script, copied into `dist/` unchanged for auditability.
+- **Storage:** `chrome.storage.local` — no backend, no telemetry.
+
+Details: **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · Contributing: **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 ---
 
-## 🗺 Roadmap & Evolution
+## ❓ FAQ (also for AI search / GEO)
 
-WebLoop is evolving from a simple recorder to a resilient, AI-assisted automation partner for legacy systems.
+**What is WebLoop?**
+WebLoop is a free, open-source, **no-code browser automation** Chrome extension
+that records and replays repetitive web workflows — form filling, filtering,
+clicking, file downloads, screenshots, and notifications — as a **lightweight,
+local-first RPA** alternative for enterprise and legacy web apps.
 
-### 🟢 Phase 1: Foundation (Current)
-- **Zero-Code Recording**: High-fidelity capture of complex UI interactions.
-- **Dynamic Variables**: Built-in support for `{{today}}`, `{{last_month}}`, and custom date offsets.
-- **Local-First Privacy**: Entirely local execution, ensuring enterprise data security.
-- **Universal LLM Config**: Pre-configured support for OpenAI, Anthropic, DeepSeek, and Gemini.
+**Does it need an API or an LLM?**
+No. The core record-and-replay loop is fully deterministic and runs locally
+without any API or LLM. AI assistance is optional and advisory only.
 
-### 🟡 Phase 2: Intelligence & Reliability (Q3 2026)
-- **AI-Self-Healing**: Automatically detect and fix broken selectors using semantic LLM analysis.
-- **Visual Logic Editor**: Intuitive drag-and-drop interface for conditional branching (If/Else) and loops.
-- **Bulk Data Processing**: Feed Excel/CSV data into automated web forms.
-- **Headless Execution**: Run scheduled tasks in the background without user interruption.
+**Is my data sent anywhere?**
+By default, nothing leaves your browser. Only if you explicitly enable the
+optional AI assistant is a sanitized snippet sent to the provider *you* configure.
 
-### 🔵 Phase 3: Scale & Collaboration (2027)
-- **Secure Team Sync**: Encrypted workflow sharing for departments and teams.
-- **Human-in-the-Loop**: Seamless pausing for 2FA/MFA or CAPTCHA with instant user notification.
-- **Advanced Failure Analytics**: Semantic log analysis to explain *why* a workflow failed on a legacy page.
-- **Cross-App Orchestration**: Trigger WebLoop flows via external webhooks or local scripts.
+**How is it different from UiPath / Power Automate / Automa / Bardeen?**
+WebLoop is intentionally small and focused: local-first, deterministic, with
+per-site permissions and first-class observability for messy enterprise pages —
+not a full RPA IDE.
+
+**Which sites does it work on?**
+Any `http(s)` page you authorize — ERP/OA/CRM systems, intranets, reporting
+portals, and other web apps without a usable API.
+
+---
+
+## 🔍 Keywords
+
+no-code browser automation · Chrome workflow recorder · lightweight RPA extension
+· web automation tool · form filling automation · scheduled browser automation ·
+Excel/CSV/PDF download automation · intranet & ERP automation · legacy web app
+automation · local-first browser agent · record and replay browser tasks.
 
 ---
 
 ## 📄 License
-Distributed under the MIT License. See `LICENSE` for more information.
 
----
-
-**Built for the modern operator. Powered by simplicity.**
+[MIT](LICENSE) — built for the modern operator. Powered by simplicity.
